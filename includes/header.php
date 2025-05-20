@@ -1,5 +1,8 @@
-<?php include_once("global_variables.php"); ?>
-<?php include_once(FOLDER_ROOT . "/helpers/navigation.php"); ?>
+<?php 
+    include_once("global_variables.php");
+    include_once("db_config.php");
+    include_once(FOLDER_ROOT . "/helpers/navigation.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,6 +13,7 @@
         <?php echo loadProperCssFiles(SITE_PATH); ?>
         <script type="text/javascript" src="./assets/js/jquery-3.7.1.min.js"></script>
         <script type="text/javascript" src="./assets/js/scripts.js"></script>
+        <script type="text/javascript" src="./assets/js/helpers/validation.js"></script>
     </head>
     <body>
         <nav>

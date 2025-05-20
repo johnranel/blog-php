@@ -48,6 +48,18 @@ main > .register > .container > .form-container > form > button {
     margin-bottom: 10px;
 }
 
+.register-error,
+.first_name-error,
+.last_name-error,
+.email-error,
+.password-error {
+    font-family: "Instrument-Sans";
+    font-size: 12px;
+    background-color: #f55757;
+    padding: 2px;
+    color: #FFFFFF;
+}
+
 /* 40rem */
 @media screen and (min-width: 640px) {
     main > .register > .container {
