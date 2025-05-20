@@ -1,4 +1,11 @@
 $(document).ready(function () {
+    $(".dropdown-nav").on("mouseover", function() {
+        $(this).find("ul").css("display", "block");
+    });
+
+    $(".dropdown-nav, .dropdown-nav>ul").on("mouseout", function() {
+        $(".dropdown-nav").find("ul").css("display", "none");
+    });
     // MOBILE NAVIGATION BURGER
     $(".burger").on("click", function(){
         $(".burger").addClass("burger-open");

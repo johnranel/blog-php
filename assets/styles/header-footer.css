@@ -125,7 +125,33 @@ nav > .container > .menu-container.is-open {
     transform: translateX(0%);
 }
 
-nav > .container > .menu-container > a {
+nav > .container > .menu-container > ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+nav > .container > .menu-container > ul > li > ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+    background-color: #FFFFFF;
+    border: 1px solid #000000;
+    padding: 0;
+    margin-top: 5px;
+    display: none;
+    position: absolute;
+}
+
+nav > .container > .menu-container > ul > li > ul > li {
+    padding: 5px;
+}
+
+nav > .container > .menu-container > ul > li > ul > li > a {
     font-family: "Oleo-Script";
     font-size: 30px;
     text-decoration: none;
@@ -134,16 +160,28 @@ nav > .container > .menu-container > a {
     transition: all ease-in 0.1s;
 }
 
-nav > .container > .menu-container > a:not(.active):hover {
+nav > .container > .menu-container > ul > li > a,
+nav > .container > .menu-container > ul > li > span {
+    font-family: "Oleo-Script";
+    font-size: 30px;
+    text-decoration: none;
+    color: #000000;
+    margin-bottom: 20px;
+    transition: all ease-in 0.1s;
+    padding: 10px;
+    cursor: pointer;
+}
+
+nav > .container > .menu-container > ul > li > a:not(.active):hover {
     color: #c39078;
     font-weight: 600;
 }
 
-nav > .container > .menu-container > a.active:hover {
+nav > .container > .menu-container > ul > li > a.active:hover {
     font-weight: 600;
 }
 
-nav > .container > .menu-container > a.active {
+nav > .container > .menu-container > ul > li > a.active {
    text-decoration: underline;
    text-underline-offset: 10px;
 }
@@ -164,7 +202,7 @@ nav > .container > .logo-container > a > img {
     height: 150px;
 }
 
-nav > .container > .menu-container > a:not(:last-of-type) {
+nav > .container > .menu-container > ul > li > a:not(:last-of-type) {
     margin-right: 40px;
 }
 
@@ -178,7 +216,7 @@ nav > .container > .menu-container > .social-icons-container > a > img {
     margin-right: 20px;
 }
 
-nav > .container > .menu-container > a:not(:last-of-type) {
+nav > .container > .menu-container > ul > li > a:not(:last-of-type) {
     margin-right: 0;
 }
 /* END MOBILE NAV BAR */
@@ -228,25 +266,66 @@ footer > .container > .footer-container > .menu-container {
     grid-area: footer-menu-container;
 }
 
-footer > .container > .footer-container > .menu-container > a {
+footer > .container > .footer-container > .menu-container > ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+footer > .container > .footer-container > .menu-container > ul > li > ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+    background-color: #FFFFFF;
+    border: 1px solid #000000;
+    padding: 0;
+    margin-top: 5px;
+    display: none;
+    position: absolute;
+}
+
+footer > .container > .footer-container > .menu-container > ul > li > a,
+footer > .container > .footer-container > .menu-container > ul > li > span {
     font-family: "Oleo-Script";
     font-size: 16px;
     text-decoration: none;
     color: #ffffff;
     transition: all ease-in 0.1s;
+    cursor: pointer;
 }
 
-footer > .container > .footer-container > .menu-container > a.active {
+footer > .container > .footer-container > .menu-container > ul > li {
+    padding: 5px;
+}
+
+footer > .container > .footer-container > .menu-container > ul > li > a.active {
     text-decoration: underline;
     text-underline-offset: 10px;
 }
 
-footer > .container > .footer-container > .menu-container > a:not(.active):hover {
+footer > .container > .footer-container > .menu-container > ul > li > a:not(.active):hover {
     color: #c39078;
 }
 
-footer > .container > .footer-container > .menu-container > a:not(:last-of-type) {
+footer > .container > .footer-container > .menu-container > ul > li > a:not(:last-of-type) {
     margin-right: 40px
+}
+
+footer > .container > .footer-container > .menu-container > ul > li > ul > li {
+    padding: 5px;
+}
+
+footer > .container > .footer-container > .menu-container > ul > li > ul > li > a {
+    font-family: "Oleo-Script";
+    font-size: 30px;
+    text-decoration: none;
+    color: #000000;
+    margin-bottom: 20px;
+    transition: all ease-in 0.1s;
 }
 
 footer > .container > .footer-container > hr {
@@ -298,7 +377,7 @@ footer > .container > .footer-container > .logo-container > a > img {
     }
 
     /* Mobile navbar */
-    nav > .container > .menu-container > a:not(:last-of-type) {
+    nav > .container > .menu-container > ul > li > a:not(:last-of-type) {
         margin-right: 0;
     }
     /* END MOBILE NAV BAR */
@@ -393,21 +472,49 @@ footer > .container > .footer-container > .logo-container > a > img {
     nav > .container > .menu-container > .close-menu {
         display: none;
     }
-    
-    nav > .container > .menu-container > a {
+
+    nav > .container > .menu-container > ul {
+        flex-direction: row;
+        gap: 10px
+    }
+
+    nav > .container > .menu-container > ul > li > ul > li > a, 
+    nav > .container > .menu-container > ul > li > ul > li > span {
         font-family: "Inter";
         font-size: 18px;
         text-decoration: none;
         color: #000000;
         margin-bottom: 0;
+        cursor: pointer;
+    }
+
+    nav > .container > .menu-container > ul > li > ul > li > a, 
+    nav > .container > .menu-container > ul > li > ul > li > span {
+        font-family: "Inter";
+        font-size: 18px;
+        text-decoration: none;
+        color: #000000;
+        margin-bottom: 0;
+        cursor: pointer;
     }
     
-    nav > .container > .menu-container > a:not(:last-of-type) {
+    nav > .container > .menu-container > ul > li > a, 
+    nav > .container > .menu-container > ul > li > span {
+        font-family: "Inter";
+        font-size: 18px;
+        text-decoration: none;
+        color: #000000;
+        margin-bottom: 0;
+        cursor: pointer;
+    }
+    
+    nav > .container > .menu-container > ul > li > a:not(:last-of-type) {
         margin-right: 40px
     }
     
     nav > .container > .menu-container > .social-icons-container {
         margin-left: 50px;
+        align-self: center;
     }
     /* END NAV CSS */
     
@@ -416,8 +523,10 @@ footer > .container > .footer-container > .logo-container > a > img {
         background-color: #000000;
     }
     
-    footer > .container > .footer-container > .menu-container > a {
+    footer > .container > .footer-container > .menu-container > ul > li > a,
+    footer > .container > .footer-container > .menu-container > ul > li > span {
         font-size: 19px;
+        cursor: pointer;
     }
     
     /* END FOOTER CSS */
@@ -456,12 +565,18 @@ footer > .container > .footer-container > .logo-container > a > img {
         visibility: visible;
     }
 
-    nav > .container > .menu-container > a {
+    nav > .container > .menu-container > ul {
+        gap: 20px;
+    }
+
+    nav > .container > .menu-container ul > li > a,
+    nav > .container > .menu-container ul > li > span {
         width: 100px;
         text-align: center;
+        cursor: pointer;
     }
     
-    nav > .container > .menu-container > a:not(:last-of-type) {
+    nav > .container > .menu-container ul > li > a:not(:last-of-type) {
         margin-right: 0;
     }
     
@@ -471,8 +586,10 @@ footer > .container > .footer-container > .logo-container > a > img {
     /* END NAV CSS */
     
     /* FOOTER CSS */
-    footer > .container > .footer-container > .menu-container > a {
+    footer > .container > .footer-container > .menu-container > ul > li > a,
+    footer > .container > .footer-container > .menu-container > ul > li > span {
         font-size: 28px;
+        cursor: pointer;
     }
     
     footer > .container > .footer-container > .menu-container > a:not(:last-of-type) {
