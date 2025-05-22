@@ -1,0 +1,72 @@
+main > .my-profile {
+    background-color: #F5EEE6;
+}
+
+main > .my-profile > .container {
+    padding: 10px;
+}
+
+main > .my-profile > .container > .form-container {
+    width: 300px;
+    padding: 20px;
+    margin: 20px;
+    background-color: #FFFFFF;
+    margin: 0 auto;
+}
+
+main > .my-profile > .container > .form-container > h1 {
+    font-family: "Instrument-Sans";
+}
+
+main > .my-profile > .container > .form-container > form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+main > .my-profile > .container > .form-container > form > div > label {
+    font-family: "Instrument-Sans";
+    font-size: 16px;
+}
+
+main > .my-profile > .container > .form-container > form > div > input, textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #000000;
+    font-size: 16px;
+    padding: 5px 5px;
+    font-family: "Instrument-Sans";
+}
+
+main > .my-profile > .container > .form-container > form > button {
+    border: 1px solid #000;
+    padding: 5px 20px;
+    font-family: "Instrument-Sans";
+    font-size: 16px;
+    background-color: #FFFFFF;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.my-profile-error,
+.first_name-error,
+.last_name-error,
+.email-error,
+.password-error {
+    font-family: "Instrument-Sans";
+    font-size: 12px;
+    background-color: #f55757;
+    padding: 2px;
+    color: #FFFFFF;
+}
+
+/* 40rem */
+@media screen and (min-width: 640px) {
+    main > .my-profile > .container {
+        padding: 20px;
+    }
+
+    main > .my-profile > .container > .form-container {
+        width: 500px;
+    }
+}

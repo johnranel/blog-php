@@ -5,9 +5,15 @@
 
     switch($_SERVER["REQUEST_METHOD"]) {
         case "POST":
-            if(array_key_exists("PUT", $_POST)) {
+            if(array_key_exists("register", $_POST)) {
                 registration($db_conn);
-            } else {
+            }
+
+            if(array_key_exists("PUT", $_POST)) {
+                updateUserProfile($db_conn);
+            }
+            
+            if(!array_key_exists("register", $_POST) && !array_key_exists("PUT", $_POST)) {
                 login($db_conn);
             }
         case "GET":
@@ -26,6 +32,20 @@
             $request = "?error=2";
         }
         header("Location: /register.php" . $request);
+    }
+
+    function updateUserProfile($db_conn) {
+        try {
+            $_POST["id"] = $_SESSION["id"];
+            $_POST["role"] = $_SESSION["role"];
+            $user_db = new User($db_conn);
+            $user_db->updateUser($_POST);
+            $request = "?success=1";
+            setSession($_POST);
+        } catch(Exception $e) {
+            $request = "?error=1";
+        }
+        header("Location: /my_profile.php" . $request);
     }
 
     function login($db_conn) {

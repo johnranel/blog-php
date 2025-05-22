@@ -9,18 +9,25 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>HOME | LIFE MUSINGS BY JANE</title>
-        <link rel="stylesheet" href="./assets/styles/header-footer.css" type="text/css">
-        <?php echo loadProperCssFiles(SITE_PATH); ?>
-        <script type="text/javascript" src="./assets/js/jquery-3.7.1.min.js"></script>
-        <script type="text/javascript" src="./assets/js/scripts.js"></script>
-        <script type="text/javascript" src="./assets/js/helpers/validation.js"></script>
+        <?php 
+            $styles = '<link rel="stylesheet" href="' . SITE_URL . '/assets/styles/header-footer.css" type="text/css">';
+            $styles .= loadCssFiles(SITE_PATH);
+            echo $styles;
+            $scripts = '<script type="text/javascript" src="' . SITE_URL . '/assets/js/jquery-3.7.1.min.js"></script>';
+            $scripts .= '<script type="text/javascript" src="' . SITE_URL . '/assets/js/scripts.js"></script>';
+            $scripts .= '<script type="text/javascript" src="' . SITE_URL . '/assets/js/helpers/validation.js"></script>';
+            $scripts .= loadJsFiles(SITE_PATH);
+            echo $scripts;
+        ?>
     </head>
     <body>
         <nav>
             <div class="container">
                 <div class="logo-container">
                     <a href="index.html">
-                        <img src="./assets/images/nav/life_musings_of_jane_logo.png" alt="Life Musings of Jane logo">
+                        <?php 
+                            echo '<img src="' . SITE_URL . '/assets/images/nav/life_musings_of_jane_logo.png" alt="Life Musings of Jane logo">';
+                        ?>
                     </a>
                 </div>
                 <div class="navbar">
@@ -34,9 +41,12 @@
                     <button class="close-menu"><img src="./assets/images/flex/close.png" alt="Close menu"></button>
                     <?php echo navLinks(SITE_PATH); ?>
                     <div class="social-icons-container">
-                        <a href="#"><img src="./assets/images/nav/instagram.png" alt="Instagram logo"></a>
-                        <a href="#"><img src="./assets/images/nav/telegram.png" alt="Telegram logo"></a>
-                        <a href="#"><img src="./assets/images/nav/facebook.png" alt="Facebook logo"></a>
+                        <?php
+                            $social_links = '<a href="#"><img src="' . SITE_URL . '/assets/images/nav/instagram.png" alt="Instagram logo"></a>';
+                            $social_links .= '<a href="#"><img src="' . SITE_URL . '/assets/images/nav/telegram.png" alt="Telegram logo"></a>';
+                            $social_links .= '<a href="#"><img src="' . SITE_URL . '/assets/images/nav/facebook.png" alt="Facebook logo"></a>';
+                            echo $social_links;
+                        ?>
                     </div>
                 </div>
             </div>

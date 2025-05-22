@@ -5,7 +5,7 @@
             <div class="form-container">
                 <h1>Register</h1>
                 <form action="/controllers/user.php" method="POST">
-                    <input type="hidden" name="PUT" value="true">
+                    <input type="hidden" name="register" value="true">
                     <div>
                         <label for="first_name">First name</label>
                         <input type="text" name="first_name" placeholder="Enter your first name" required>

@@ -20,16 +20,31 @@
                     first_name, 
                     last_name, 
                     email, 
-                    password
+                    password,
+                    role
                 ) VALUES (
+                    ?,
                     ?,
                     ?,
                     ?,
                     ?
                 );
             ";
+            $type = "sssss";
+            $fields_array = [$user_data["first_name"], $user_data["last_name"], $user_data["email"], password_hash($user_data["password"], PASSWORD_BCRYPT), "member"];
+            $this->executeQuery($action, $query, $type, $fields_array);
+        }
+
+        public function updateUser($user_data) {
+            $action = "Insert user";
+            $query = "UPDATE users SET
+                    first_name = ?, 
+                    last_name = ?, 
+                    email = ?
+                    WHERE id = ?;
+            ";
             $type = "ssss";
-            $fields_array = [$user_data["first_name"], $user_data["last_name"], $user_data["email"], password_hash($user_data["password"], PASSWORD_BCRYPT)];
+            $fields_array = [$user_data["first_name"], $user_data["last_name"], $user_data["email"], $user_data["id"]];
             $this->executeQuery($action, $query, $type, $fields_array);
         }
 

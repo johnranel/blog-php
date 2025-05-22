@@ -3,7 +3,9 @@
                 <div class="footer-container">
                     <div class="logo-container">
                         <a href="index.html">
-                            <img src="./assets/images/footer/life_musings_of_jane_logo.png" alt="Life Musings of Jane logo">
+                            <?php 
+                                echo '<img src="' . SITE_URL . '/assets/images/footer/life_musings_of_jane_logo.png" alt="Life Musings of Jane logo">';
+                            ?>
                         </a>
                     </div>
                     <div class="menu-container">
@@ -12,9 +14,12 @@
                     <hr>
                     <div class="socials-container">
                         <p>FOLLOW ME ON MY SOCIALS</p>
-                        <a href="#"><img src="./assets/images/footer/instagram.png" alt="Instagram logo"></a>
-                        <a href="#"><img src="./assets/images/footer/telegram.png" alt="Telegram logo"></a>
-                        <a href="#"><img src="./assets/images/footer/facebook.png" alt="Facebook logo"></a>
+                        <?php
+                            $social_links = '<a href="#"><img src="' . SITE_URL . '/assets/images/footer/instagram.png" alt="Instagram logo"></a>';
+                            $social_links .= '<a href="#"><img src="' . SITE_URL . '/assets/images/footer/telegram.png" alt="Telegram logo"></a>';
+                            $social_links .= '<a href="#"><img src="' . SITE_URL . '/assets/images/footer/facebook.png" alt="Facebook logo"></a>';
+                            echo $social_links;
+                        ?>
                     </div>
                     <div class="copyright-container">
                         <p>COPYRIGHT <?php echo date("Y"); ?> ALL RIGHTS RESERVED</p>

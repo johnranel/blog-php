@@ -1,9 +1,15 @@
 <?php
     include_once("authentication.php");
 
-    function loadProperCssFiles($current_site_path) {
+    function loadCssFiles($current_site_path) {
         $current_site_path = ($current_site_path === "") ? "index" : $current_site_path;
-        return '<link rel="stylesheet" href="./assets/styles/' . $current_site_path . '.css" type="text/css">';
+        $current_site_path = ($current_site_path === "/admin/dashboard" || $current_site_path === "/admin/travel" || $current_site_path === "/admin/blog" || $current_site_path === "/admin/ootd") ? "/admin/dashboard" : $current_site_path;
+        return '<link rel="stylesheet" href="' . SITE_URL . '/assets/styles' . $current_site_path . '.css" type="text/css">';
+    }
+
+    function loadJsFiles($current_site_path) {
+        $current_site_path = ($current_site_path === "/admin/travel" || $current_site_path === "/admin/blog" || $current_site_path === "/admin/ootd") ? "/admin/dashboard" : $current_site_path;
+        return '<script type="text/javascript" src="' . SITE_URL . '/assets/js/modals.js"></script>';
     }
 
     function navLinks($site_path) {
@@ -19,18 +25,21 @@
             if(!is_array($nav_links_name[$i])) {
                 $nav_link_name = ($nav_links_name[$i] === "index") ? "HOME" : strtoupper($nav_links_name[$i]);
                 $nav_link_active = ($site_path === $nav_links_name[$i]) ? 'class="active"' : '';
-                $nav_link_elems .= '<li><a href="' . $nav_links_name[$i] . '.php" ' . $nav_link_active . '>' . $nav_link_name . '</a></li>';
+                $nav_link_elems .= '<li><a href="/' . $nav_links_name[$i] . '.php" ' . $nav_link_active . '>' . $nav_link_name . '</a></li>';
             } else {
                 if($nav_links_name[$i][0] === "travel") {
                     $nav_link_elems .= '<li class="dropdown-nav"><span>POSTS</span><ul>';
                 } else {
-                    $nav_link_elems .= '<li class="dropdown-nav"><a href="my_profile.php">MY PROFILE</a><ul>';
+                    $nav_link_elems .= '<li class="dropdown-nav"><a href="/my_profile.php">MY PROFILE</a><ul>';
+                    if(isAdmin()) {
+                        $nav_link_elems .= '<li class="dropdown-nav"><a href="/admin/dashboard.php">ADMIN DASHBOARD</a></li>';
+                    }
                 }
                 $sub_nav_link_names = $nav_links_name[$i];
                 for($j = 0; $j < count($sub_nav_link_names); $j++) {
                     $sub_nav_link_active = ($site_path === $sub_nav_link_names[$j]) ? 'class="active"' : '';
                     $sub_link = ($sub_nav_link_names[$j] !== "logout") ? $sub_nav_link_names[$j] . ".php" : "/controllers/user.php?logout=1";
-                    $nav_link_elems .= '<li><a href="' . $sub_link . '" ' . $sub_nav_link_active . '>' . strtoupper($sub_nav_link_names[$j]) . '</a></li>';
+                    $nav_link_elems .= '<li><a href="/' . $sub_link . '" ' . $sub_nav_link_active . '>' . strtoupper($sub_nav_link_names[$j]) . '</a></li>';
                 }
                 $nav_link_elems .= '</ul></li>';
             }
