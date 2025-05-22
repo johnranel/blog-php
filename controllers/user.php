@@ -3,18 +3,20 @@
     require_once("../models/user.php");
     require_once("../helpers/authentication.php");
 
+    $user_db = new Users($db_conn);
+
     switch($_SERVER["REQUEST_METHOD"]) {
         case "POST":
             if(array_key_exists("register", $_POST)) {
-                registration($db_conn);
+                registration($user_db);
             }
 
             if(array_key_exists("PUT", $_POST)) {
-                updateUserProfile($db_conn);
+                updateUserProfile($user_db);
             }
             
             if(!array_key_exists("register", $_POST) && !array_key_exists("PUT", $_POST)) {
-                login($db_conn);
+                login($user_db);
             }
         case "GET":
             if(array_key_exists("logout", $_GET)) {
@@ -23,9 +25,8 @@
             break;
     }
 
-    function registration($db_conn) {
+    function registration($user_db) {
         try {
-            $user_db = new User($db_conn);
             $user_db->insertUser($_POST);
             $request = "?success=1";
         } catch(Exception $e) {
@@ -34,11 +35,10 @@
         header("Location: /register.php" . $request);
     }
 
-    function updateUserProfile($db_conn) {
+    function updateUserProfile($user_db) {
         try {
             $_POST["id"] = $_SESSION["id"];
             $_POST["role"] = $_SESSION["role"];
-            $user_db = new User($db_conn);
             $user_db->updateUser($_POST);
             $request = "?success=1";
             setSession($_POST);
@@ -48,8 +48,7 @@
         header("Location: /my_profile.php" . $request);
     }
 
-    function login($db_conn) {
-        $user_db = new User($db_conn);
+    function login($user_db) {
         try {
             $user_db_res = $user_db->getUserByEmail($_POST["email"]);
             $user_data = $user_db_res->fetch_assoc();

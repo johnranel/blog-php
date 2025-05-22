@@ -5,7 +5,8 @@
     function runDatabaseMigration($db_conn) {
         try {
             $database = new DatabaseSchema($db_conn);
-            $database->createUsersTable();      
+            $database->createUsersTable();
+            $database->createPostsTable();
         } catch(Exception $e) {
             throw new error("died: " . $e->getMessage());
         }

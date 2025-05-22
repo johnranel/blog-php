@@ -4,7 +4,7 @@ $(document).ready(function () {
     $("form").find("button").attr("disabled", "disabled");
     let validation = {};
 
-    $("form").on("keyup", function () {
+    $("form").on("change", function () {
         let input_elems = $(this).find("input");
         input_elems.each(function() {
             validateInput($(this).attr("name"), $(this).val());

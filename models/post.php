@@ -1,0 +1,122 @@
+<?php
+    class Posts {
+        private $db_connect;
+
+        public function __construct($db_conn) {
+            $this->db_connect = $db_conn;
+        }
+
+        public function getPostBySlugTitle($post_data) {
+            $action = "Get post by slug title";
+            $query = "SELECT * FROM posts WHERE slug_title = ?";
+            $type = "s";
+            $fields_array = [$post_data["slug_title"]];
+            return $this->executeQuery($action, $query, $type, $fields_array);
+        }
+
+        public function getPostById($post_data) {
+            $action = "Get post by id";
+            $query = "SELECT * FROM posts WHERE id = ?";
+            $type = "i";
+            $fields_array = [$post_data["id"]];
+            return $this->executeQuery($action, $query, $type, $fields_array);
+        }
+
+        public function getPostByTypeLimited($post_data) {
+            $action = "Get post by type";
+            $query = "SELECT * FROM posts WHERE type = ? LIMIT ? OFFSET ?";
+            $type = "sii";
+            $fields_array = [$post_data["type"], $post_data["limit"], $post_data["offset"]];
+            return $this->executeQuery($action, $query, $type, $fields_array);
+        }
+
+        public function insertPost($post_data) {
+            $today = date("Y-m-d H:i:s");
+            $action = "Insert post";
+            $query = "INSERT INTO posts (
+                    user_id,
+                    title,
+                    slug_title,
+                    type,
+                    short_description,
+                    content,
+                    category,
+                    date,
+                    created_at,
+                    updated_at
+                ) VALUES (
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?
+                );
+            ";
+            $type = "isssssssss";
+            $fields_array = [
+                $post_data["user_id"], 
+                $post_data["title"], 
+                $post_data["slug_title"], 
+                $post_data["type"], 
+                $post_data["short_description"] ?? NULL,
+                $post_data["content"] ?? NULL,
+                $post_data["category"],
+                $post_data["date"],
+                $today,
+                $today
+            ];
+            $this->executeQuery($action, $query, $type, $fields_array);
+        }
+
+        public function updatePost($post_data) {
+            $today = date("Y-m-d H:i:s");
+            $action = "Update post";
+            $query = "UPDATE posts SET
+                title = ?,
+                slug_title = ?,
+                short_description = ?,
+                content = ?,
+                category = ?,
+                date = ?,
+                updated_at = ?
+                WHERE id = ?
+            ";
+            $type = "sssssssi";
+            $fields_array = [
+                $post_data["title"], 
+                $post_data["slug_title"], 
+                $post_data["short_description"] ?? NULL,
+                $post_data["content"] ?? NULL,
+                $post_data["category"],
+                $post_data["date"],
+                $today,
+                $post_data["id"]
+            ];
+            $this->executeQuery($action, $query, $type, $fields_array);
+        }
+
+        public function deletePost($post_data) {
+            $action = "Delete post";
+            $query = "DELETE FROM posts WHERE id = ?";
+            $type = "i";
+            $fields_array = [$post_data["id"]];
+            $this->executeQuery($action, $query, $type, $fields_array);
+        }
+
+        private function executeQuery($action, $query, $type, $fields_array) {
+            try {
+                $stmt = $this->db_connect->prepare($query);
+                $stmt->bind_param($type, ...$fields_array);
+                $stmt->execute();
+                return $stmt->get_result();
+            } catch(Exception $e) {
+                throw new Exception($e->getMessage());
+            }
+        }
+    }
+?>

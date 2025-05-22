@@ -8,8 +8,12 @@
     }
 
     function loadJsFiles($current_site_path) {
-        $current_site_path = ($current_site_path === "/admin/travel" || $current_site_path === "/admin/blog" || $current_site_path === "/admin/ootd") ? "/admin/dashboard" : $current_site_path;
-        return '<script type="text/javascript" src="' . SITE_URL . '/assets/js/modals.js"></script>';
+        $scripts = "";
+        if($current_site_path === "/admin/dashboard" || $current_site_path === "/admin/travel" || $current_site_path === "/admin/blog" || $current_site_path === "/admin/ootd") {
+            $scripts .= '<script type="text/javascript" src="' . SITE_URL . '/assets/js/modals.js"></script>';
+            $scripts .= '<script type="text/javascript" src="' . SITE_URL . '/assets/js/ajax/posts.js"></script>';
+        }
+        return $scripts;
     }
 
     function navLinks($site_path) {
@@ -38,7 +42,7 @@
                 $sub_nav_link_names = $nav_links_name[$i];
                 for($j = 0; $j < count($sub_nav_link_names); $j++) {
                     $sub_nav_link_active = ($site_path === $sub_nav_link_names[$j]) ? 'class="active"' : '';
-                    $sub_link = ($sub_nav_link_names[$j] !== "logout") ? $sub_nav_link_names[$j] . ".php" : "/controllers/user.php?logout=1";
+                    $sub_link = ($sub_nav_link_names[$j] !== "logout") ? $sub_nav_link_names[$j] . ".php" : "controllers/user.php?logout=1";
                     $nav_link_elems .= '<li><a href="/' . $sub_link . '" ' . $sub_nav_link_active . '>' . strtoupper($sub_nav_link_names[$j]) . '</a></li>';
                 }
                 $nav_link_elems .= '</ul></li>';

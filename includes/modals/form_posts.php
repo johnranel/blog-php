@@ -11,14 +11,26 @@
                     <label for="name">Title</label>
                     <input type="text" name="title" placeholder="Enter title here" required/>
                 </div>
-                <div>
-                    <label for="short_description">Short Description</label>
-                    <input type="text" name="short_description" placeholder="Enter short description here" required/>
-                </div>
-                <div>
-                    <label for="content">Content</label>
-                    <textarea name="content" rows="10" placeholder="Enter content here" required></textarea>
-                </div>
+                <?php
+                    $elems = "";
+                    if(SITE_PATH === "/admin/blog") {
+                        $elems .= '
+                            <div>
+                                <label for="short_description">Short Description</label>
+                                <input type="text" name="short_description" placeholder="Enter short description here" required/>
+                            </div>
+                        ';
+                    }
+                    if(SITE_PATH === "/admin/blog" || SITE_PATH === "/admin/travel") {
+                        $elems .= '
+                            <div>
+                                <label for="content">Content</label>
+                                <textarea name="content" rows="10" placeholder="Enter content here" required></textarea>
+                            </div>
+                        ';
+                    }
+                    echo $elems;
+                ?>
                 <div>
                     <label for="category">Category</label>
                     <select type="text" name="category" required>

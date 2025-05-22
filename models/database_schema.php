@@ -20,6 +20,26 @@
             $this->executeQuery($db_name, $query);
         }
 
+        public function createPostsTable() {
+            $db_name = "posts";
+            $query = "CREATE TABLE posts (
+                id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                user_id INT UNSIGNED,
+                title VARCHAR(255) NOT NULL UNIQUE,
+                slug_title VARCHAR(255) NOT NULL,
+                type VARCHAR(20) NOT NULL,
+                short_description VARCHAR(255),
+                content VARCHAR(150),
+                category VARCHAR(50) NOT NULL,
+                date DATE NOT NULL,
+                created_at DATETIME NOT NULL,
+                updated_at DATETIME NOT NULL,
+                FOREIGN KEY(user_id) REFERENCES users(id)
+            )";
+
+            $this->executeQuery($db_name, $query);
+        }
+
         private function executeQuery($db_name, $query) {
             $table_exists = $this->db_connect->query("SHOW TABLES LIKE '$db_name'");
             if(mysqli_num_rows($table_exists) <= 0) {
