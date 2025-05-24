@@ -8,7 +8,11 @@
 
         public function getPostBySlugTitle($post_data) {
             $action = "Get post by slug title";
-            $query = "SELECT * FROM posts WHERE slug_title = ?";
+            $query = "SELECT posts.*, images.id AS image_id, images.image_url
+                    FROM posts
+                    LEFT JOIN images ON images.post_id = posts.id
+                    WHERE slug_title = ?
+            ";
             $type = "s";
             $fields_array = [$post_data["slug_title"]];
             return $this->executeQuery($action, $query, $type, $fields_array);
@@ -16,7 +20,11 @@
 
         public function getPostById($post_data) {
             $action = "Get post by id";
-            $query = "SELECT * FROM posts WHERE id = ?";
+            $query = "SELECT posts.*, images.id AS image_id, images.image_url
+                    FROM posts
+                    LEFT JOIN images ON images.post_id = posts.id
+                    WHERE posts.id = ?
+            ";
             $type = "i";
             $fields_array = [$post_data["id"]];
             return $this->executeQuery($action, $query, $type, $fields_array);
@@ -24,7 +32,11 @@
 
         public function getPostByTypeLimited($post_data) {
             $action = "Get post by type";
-            $query = "SELECT * FROM posts WHERE type = ? LIMIT ? OFFSET ?";
+            $query = "SELECT posts.*, images.id AS image_id, images.image_url
+                    FROM posts
+                    LEFT JOIN images ON images.post_id = posts.id
+                    WHERE type = ? LIMIT ? OFFSET ?
+            ";
             $type = "sii";
             $fields_array = [$post_data["type"], $post_data["limit"], $post_data["offset"]];
             return $this->executeQuery($action, $query, $type, $fields_array);
@@ -70,7 +82,8 @@
                 $today,
                 $today
             ];
-            $this->executeQuery($action, $query, $type, $fields_array);
+            $result = $this->executeQuery($action, $query, $type, $fields_array);
+            return $this->db_connect->insert_id;
         }
 
         public function updatePost($post_data) {

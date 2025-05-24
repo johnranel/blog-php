@@ -17,7 +17,7 @@ $(document).ready(function() {
                     <td>${table_data[i].date}</td>
                     <td>
                         <button class="edit-post" data-modal_name="form_posts_modal" data-id=${table_data[i].id}>Edit</button>
-                        <button class="delete-post-btn" data-modal_name="delete_post_modal" data-id=${table_data[i].id}>Delete</button>
+                        <button class="delete-post-btn" data-modal_name="delete_post_modal" data-id=${table_data[i].id} data-image_id=${table_data[i].image_id} data-image_url=${table_data[i].image_url}>Delete</button>
                     </td>
                 </tr>
             `;
@@ -27,7 +27,9 @@ $(document).ready(function() {
 
     $(document).on("click", ".create-post", function(event) {
         $("form")[0].reset();
-        $(this).removeAttr("data-id")
+        $(this).removeAttr("data-id");
+        $(this).removeAttr("data-image_url");
+        $(this).removeAttr("data-image_id");
         toggleFormClass("create");
     });
 
@@ -39,6 +41,8 @@ $(document).ready(function() {
             ajaxRequest("POST", form_data, "?create=true");
         } else {
             form_data.append("id", $(this).attr("data-id"));
+            form_data.append("image_url", $(this).attr("data-image_url"));
+            form_data.append("image_id", $(this).attr("data-image_id"));
             ajaxRequest("POST", form_data, "?update=true");
         }
     });
@@ -49,17 +53,25 @@ $(document).ready(function() {
         toggleFormClass("update");
         let post_db_res = await ajaxRequest("GET", "", `?id=${post_id}`);
         let post_data = JSON.parse(post_db_res);
+        $("form").attr("data-image_url", post_data["image_url"]);
+        $("form").attr("data-image_id", post_data["image_id"]);
         setInputData(post_data);
     });
 
     $(document).on("click", ".delete-post-btn", function () {
         let post_id = $(this).attr("data-id");
+        let image_id = $(this).attr("data-image_id");
+        let image_url = $(this).attr("data-image_url");
         $(".delete-post-confirm").attr("data-id", post_id);
+        $(".delete-post-confirm").attr("data-image_id", image_id);
+        $(".delete-post-confirm").attr("data-image_url", image_url);
     });
 
     $(document).on("click", ".delete-post-confirm", function () {
         let post_id = $(this).attr("data-id");
-        ajaxRequest("DELETE", "", `?id=${post_id}`);
+        let image_id = $(this).attr("data-image_id");
+        let image_url = $(this).attr("data-image_url");
+        ajaxRequest("DELETE", "", `?id=${post_id}&image_id=${image_id}&image_url=${image_url}`);
     });
 
     function toggleFormClass(add_class_name) {

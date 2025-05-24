@@ -7,6 +7,7 @@
             $database = new DatabaseSchema($db_conn);
             $database->createUsersTable();
             $database->createPostsTable();
+            $database->createImagesTable();
         } catch(Exception $e) {
             throw new error("died: " . $e->getMessage());
         }

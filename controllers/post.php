@@ -1,18 +1,21 @@
 <?php
+    require_once("../includes/global_variables.php");
     require_once("../includes/db_config.php");
     require_once("../models/post.php");
+    require_once("../models/images.php");
     require_once("../helpers/authentication.php");
 
     $post_db = new Posts($db_conn);
+    $image_db = new Images($db_conn);
 
     switch($_SERVER["REQUEST_METHOD"]) {
         case "POST":
             if(array_key_exists("create", $_GET)) {
-                createPost($post_db);
+                createPost($post_db, $image_db);
             }
 
             if(array_key_exists("update", $_GET)) {
-                modifyPost($post_db);
+                modifyPost($post_db, $image_db);
             }
             break;
         case "GET":
@@ -25,7 +28,7 @@
             }
             break;
         case "DELETE":
-            removePost($post_db);
+            removePost($post_db, $image_db);
             break;
     }
 
@@ -36,15 +39,25 @@
         return $str;
     }
 
-    function createPost($post_db) {
+    function createPost($post_db, $image_db) {
         $_POST["user_id"] = $_SESSION["id"];
         $_POST["slug_title"] = convertTitleToURL($_POST["title"]);
-        $post_db->insertPost($_POST);
+        $post_id = $post_db->insertPost($_POST);
+        insertImage($post_id, $image_db);
     }
 
-    function modifyPost($post_db) {
+    function modifyPost($post_db, $image_db) {
         $_POST["slug_title"] = convertTitleToURL($_POST["title"]);
         $post_db->updatePost($_POST);
+        if(isset($_FILES["post_image"])) {
+            $image_db->deleteImage(["id" => $_POST["image_id"], "image_url" => $_POST["image_url"]]);
+            insertImage($_POST["id"], $image_db);
+        }
+    }
+
+    function insertImage($post_id, $image_db) {
+        $uploaded_image = $image_db->uploadImage($_FILES["post_image"], FOLDER_ROOT);
+        $image_db->insertImage(["post_id" => $post_id, "user_id" => NULL, "image_url" => $uploaded_image]);
     }
 
     function getPostTableData($post_db) {
@@ -63,7 +76,8 @@
         echo json_encode($post_res->fetch_assoc());
     }
 
-    function removePost($post_db) {
+    function removePost($post_db, $image_db) {
+        $image_db->deleteImage(["id" => $_GET["image_id"], "image_url" => $_GET["image_url"]]);
         $post_db->deletePost($_GET);
     }
 ?>

@@ -40,6 +40,20 @@
             $this->executeQuery($db_name, $query);
         }
 
+        public function createImagesTable() {
+            $db_name = "images";
+            $query = "CREATE TABLE images (
+                id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                user_id INT UNSIGNED,
+                post_id INT UNSIGNED,
+                image_url VARCHAR(255) NOT NULL UNIQUE,
+                FOREIGN KEY(user_id) REFERENCES users(id),
+                FOREIGN KEY(post_id) REFERENCES posts(id)
+            )";
+
+            $this->executeQuery($db_name, $query);
+        }
+
         private function executeQuery($db_name, $query) {
             $table_exists = $this->db_connect->query("SHOW TABLES LIKE '$db_name'");
             if(mysqli_num_rows($table_exists) <= 0) {
