@@ -19,8 +19,9 @@
             $unique_name = rand() . "_" . $image_name;
             $image_tmp = $image_data["tmp_name"];
             $target_path = $file_path . "/uploads/" . $unique_name;
+            $target_url = "/uploads/" . $unique_name;
             move_uploaded_file($image_tmp, $target_path);
-            return $target_path;
+            return $target_url;
         }
 
         public function deleteImage($image_data) {

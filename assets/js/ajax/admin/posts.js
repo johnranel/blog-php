@@ -5,23 +5,33 @@ $(document).ready(function() {
     loadPostsTable(10, 0);
 
     async function loadPostsTable(limit, offset) {
+        $(".table-body").empty();
         let table_data_res = await ajaxRequest("GET", "", `?type=${type}&limit=${limit}&offset=${offset}`);
         let table_data = JSON.parse(table_data_res);
         let table_rows = "";
-        for(let i = 0; i < table_data.length; i++) {
+        if(table_data.length !== 0) {
+            for(let i = 0; i < table_data.length; i++) {
+                table_rows += `
+                    <tr>
+                        <td>${table_data[i].title}</td>
+                        ${type === "blog" ? `<td>${table_data[i].short_description}</td>` : "" }
+                        <td>${table_data[i].category}</td>
+                        <td>${table_data[i].date}</td>
+                        <td>
+                            <button class="edit-post" data-modal_name="form_posts_modal" data-id=${table_data[i].id}>Edit</button>
+                            <button class="delete-post-btn" data-modal_name="delete_post_modal" data-id=${table_data[i].id} data-image_id=${table_data[i].image_id} data-image_url=${table_data[i].image_url}>Delete</button>
+                        </td>
+                    </tr>
+                `;
+            }
+        } else {
             table_rows += `
                 <tr>
-                    <td>${table_data[i].title}</td>
-                    ${type === "blog" ? `<td>${table_data[i].short_description}</td>` : "" }
-                    <td>${table_data[i].category}</td>
-                    <td>${table_data[i].date}</td>
-                    <td>
-                        <button class="edit-post" data-modal_name="form_posts_modal" data-id=${table_data[i].id}>Edit</button>
-                        <button class="delete-post-btn" data-modal_name="delete_post_modal" data-id=${table_data[i].id} data-image_id=${table_data[i].image_id} data-image_url=${table_data[i].image_url}>Delete</button>
-                    </td>
+                    <td ${type === "blog" ? 'colspan="5"' : 'colspan="4"' } >No data available.</td>
                 </tr>
             `;
         }
+        
         $(".table-body").append(table_rows);
     }
 
@@ -33,18 +43,20 @@ $(document).ready(function() {
         toggleFormClass("create");
     });
 
-    $(document).on("submit", "form", function (event) {
+    $(document).on("submit", "form", async function (event) {
         event.preventDefault();
         let form_data = new FormData(this);
         form_data.append("type", type);
         if($(this).hasClass("create")) {
-            ajaxRequest("POST", form_data, "?create=true");
+            await ajaxRequest("POST", form_data, "?create=true");
         } else {
             form_data.append("id", $(this).attr("data-id"));
             form_data.append("image_url", $(this).attr("data-image_url"));
             form_data.append("image_id", $(this).attr("data-image_id"));
-            ajaxRequest("POST", form_data, "?update=true");
+            await ajaxRequest("POST", form_data, "?update=true");
         }
+        await loadPostsTable(10, 0);
+        $(".close-modal").trigger("click");
     });
 
     $(document).on("click", ".edit-post", async function () {
@@ -67,11 +79,13 @@ $(document).ready(function() {
         $(".delete-post-confirm").attr("data-image_url", image_url);
     });
 
-    $(document).on("click", ".delete-post-confirm", function () {
+    $(document).on("click", ".delete-post-confirm", async function () {
         let post_id = $(this).attr("data-id");
         let image_id = $(this).attr("data-image_id");
         let image_url = $(this).attr("data-image_url");
-        ajaxRequest("DELETE", "", `?id=${post_id}&image_id=${image_id}&image_url=${image_url}`);
+        await ajaxRequest("DELETE", "", `?id=${post_id}&image_id=${image_id}&image_url=${image_url}`);
+        await loadPostsTable(10, 0);
+        $(".close-modal").trigger("click");
     });
 
     function toggleFormClass(add_class_name) {

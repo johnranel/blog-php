@@ -42,6 +42,18 @@
             return $this->executeQuery($action, $query, $type, $fields_array);
         }
 
+        public function getPostBySearchKey($search_key) {
+            $action = "Get post by search key";
+            $query = "SELECT posts.*, images.id AS image_id, images.image_url
+                    FROM posts
+                    LEFT JOIN images ON images.post_id = posts.id
+                    WHERE type = ? AND (title LIKE CONCAT('%',?,'%') OR category LIKE CONCAT('%',?,'%')) LIMIT ?
+            ";
+            $type = "sssi";
+            $fields_array = [$search_key["type"], $search_key["search_key"], $search_key["search_key"], 10];
+            return $this->executeQuery($action, $query, $type, $fields_array);
+        }
+
         public function insertPost($post_data) {
             $today = date("Y-m-d H:i:s");
             $action = "Insert post";
