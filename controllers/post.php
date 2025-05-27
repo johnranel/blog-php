@@ -94,7 +94,7 @@
 
     function removePost($post_db, $image_db) {
         if(!isAdmin()) return "Unauthorized access please login as administrator.";
-        $image_db->deleteImage(["id" => $_GET["image_id"], "image_url" => $_GET["image_url"]]);
+        $image_db->deleteImage(["id" => $_GET["image_id"], "image_url" => FOLDER_ROOT . $_GET["image_url"]]);
         $post_db->deletePost($_GET);
     }
 ?>

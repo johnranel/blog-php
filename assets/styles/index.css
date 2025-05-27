@@ -147,6 +147,11 @@ main > .travel > .travel-images > a > img {
     margin-left: 10px;
     transition: all 0.5s ease-out;
 }
+
+main > .travel > .travel-images > .empty-message {
+    margin: 100px 0 0 20px;
+    width: 130px;
+}
 /* END TRAVEL CSS */
 
 /* BLOG CSS */
@@ -343,6 +348,10 @@ main > .ootd > .container > .ootd-container > figure > figcaption {
     overflow: hidden;
 }
 
+main > .ootd > .container > .ootd-container > .empty-message {
+    margin: 170px 0 0 -100px;
+}
+
 main > .ootd > .container > a {
     font-family: "Instrument-Sans";
     font-weight: 600;
@@ -393,6 +402,18 @@ main > .ootd > .container > a > img {
 }
 /* END OOTD CSS */
 
+.empty-message {
+    border: 1px solid #000;
+    padding: 5px 20px;
+    font-family: "Instrument-Sans";
+    font-size: 16px;
+    background-color: #FFFFFF;
+    width: auto;
+    justify-self: center;
+    z-index: 2;
+    position: relative;
+}
+
 /* RESPONSIVE BREAKPOINTS */
 
 /* 40rem */
@@ -437,6 +458,11 @@ main > .ootd > .container > a > img {
     main > .travel > .travel-images > article > a > figure > figcaption {
         margin: -160px auto;
         font-size: 40px;
+    }
+
+    main > .travel > .travel-images > .empty-message {
+        margin: 100px 0 0 -50px;
+        width: auto;
     }
     /* END TRAVEL CSS */
 
@@ -484,6 +510,10 @@ main > .ootd > .container > a > img {
     main > .ootd > .container > .ootd-container > figure:nth-child(4) > img {
         margin-left: 0;
     }
+
+    main > .ootd > .container > .ootd-container > .empty-message {
+        margin: 50px 0 0 -400px;
+    }
     /* END OOTD CSS */
 }
 
@@ -500,6 +530,11 @@ main > .ootd > .container > a > img {
             "image1 image1 image2 image3"
             "image4 image5 image6 image6"
             "viewmore viewmore viewmore viewmore";
+    }
+    
+    main > .travel > .travel-images > .empty-message {
+        margin: 100px 0 0 100px;
+        width: 130px;
     }
     /* END TRAVEL CSS */
 
@@ -531,6 +566,10 @@ main > .ootd > .container > a > img {
 
     main > .ootd > .container > .ootd-container > figure:nth-child(3) > img {
         margin-left: 60px;
+    }
+
+    main > .ootd > .container > .ootd-container > .empty-message {
+        margin: 70px 0 0 -500px;
     }
     /* END OOTD CSS */
 }
@@ -569,6 +608,10 @@ main > .ootd > .container > a > img {
     main > .travel > .travel-images > article > a >figure > figcaption {
         margin: -220px auto;
         font-size: 50px;
+    }
+
+    main > .travel > .travel-images > .empty-message {
+        margin: 100px 0 0 150px;
     }
     /* END TRAVEL CSS */
 
@@ -626,6 +669,10 @@ main > .ootd > .container > a > img {
         margin-left: 365px;
         margin-top: 50px;
     }
+
+    main > .ootd > .container > .ootd-container > .empty-message {
+        margin: 200px 0 0 250px;
+    }
     /* END OOTD CSS */
 }
 
@@ -637,6 +684,12 @@ main > .ootd > .container > a > img {
         width: 500px;
     }
     /* END LANDING PAGE BANNER CSS */
+
+    /* TRAVEL CSS */
+    main > .travel > .travel-images > .empty-message {
+        margin: 100px 0 0 120px;
+    }
+    /* END TRAVEL CSS */
 
     /* BLOG CSS */
     main > .blog > input {
@@ -679,6 +732,10 @@ main > .ootd > .container > a > img {
 
     main > .ootd > .container > .ootd-container > figure:nth-child(4) > img {
         margin-left: 405px;
+    }
+
+    main > .ootd > .container > .ootd-container > .empty-message {
+        margin: 200px 0 0 380px;
     }
     /* END OOTD CSS */
 }

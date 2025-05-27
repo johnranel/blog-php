@@ -7,7 +7,7 @@ $(document).ready(function () {
     loadPostCards(postDisplay, 0);
 
     async function loadPostCards(limit, offset) {
-        let posts_data_res = await ajaxRequest("GET", "", `?type=${currentPage}&limit=${limit}&offset=${offset}`);
+        let posts_data_res = await ajaxRequest(`?type=${currentPage}&limit=${limit}&offset=${offset}`);
         loopThroughPostsData(posts_data_res);
     }
 
@@ -26,7 +26,7 @@ $(document).ready(function () {
     });
 
     async function searchPosts(search_key) {
-        let posts_data_res = await ajaxRequest("GET", "", `?type=${currentPage}&search_key=${search_key}`);
+        let posts_data_res = await ajaxRequest(`?type=${currentPage}&search_key=${search_key}`);
         loopThroughPostsData(posts_data_res);
     }
 
@@ -48,7 +48,7 @@ $(document).ready(function () {
                 }
             }
         } else {
-            post_cards += ``;
+            post_cards += `<div class="empty-message">No Post Available.</div>`;
         }
         $(postContainer).append(post_cards);
     }
@@ -100,12 +100,11 @@ $(document).ready(function () {
         `;
     }
 
-    async function ajaxRequest(method, form_data, request_data) {
+    async function ajaxRequest(request_data) {
         let res_ajax;
         await $.ajax({
-            method: method,
+            method: "GET",
             url: `/controllers/post.php${request_data}`,
-            data: form_data,
             contentType: false,
             processData: false,
             success: function (res) {

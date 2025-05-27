@@ -16,6 +16,9 @@
         if($current_site_path === "/travel" || $current_site_path === "/blog" || $current_site_path === "/ootd") {
             $scripts .= '<script type="text/javascript" src="' . SITE_URL . '/assets/js/ajax/public/posts.js"></script>';
         }
+        if($current_site_path === "" || $current_site_path === "/index") {
+            $scripts .= '<script type="text/javascript" src="' . SITE_URL . '/assets/js/ajax/public/index.js"></script>';
+        }
         return $scripts;
     }
 

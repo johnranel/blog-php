@@ -141,6 +141,18 @@ main > .travel > .container > .travel-posts > article > a > figure > .overlay > 
     color: #ffffff;
     transition: all 0.5s ease-out;
 }
+
+.empty-message {
+    border: 1px solid #000;
+    padding: 5px 20px;
+    font-family: "Instrument-Sans";
+    font-size: 16px;
+    background-color: #FFFFFF;
+    width: auto;
+    margin: 0 auto;
+    z-index: 2;
+    position: relative;
+}
 /* END TRAVEL CSS */
 
 /* 40rem */
