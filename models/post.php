@@ -31,11 +31,13 @@
         }
 
         public function getPostByTypeLimited($post_data) {
-            $action = "Get post by type";
+            $action = "Get limited post by type";
             $query = "SELECT posts.*, images.id AS image_id, images.image_url
                     FROM posts
                     LEFT JOIN images ON images.post_id = posts.id
-                    WHERE type = ? LIMIT ? OFFSET ?
+                    WHERE type = ?
+                    ORDER BY posts.created_at DESC
+                    LIMIT ? OFFSET ?
             ";
             $type = "sii";
             $fields_array = [$post_data["type"], $post_data["limit"], $post_data["offset"]];
@@ -47,7 +49,9 @@
             $query = "SELECT posts.*, images.id AS image_id, images.image_url
                     FROM posts
                     LEFT JOIN images ON images.post_id = posts.id
-                    WHERE type = ? AND (title LIKE CONCAT('%',?,'%') OR category LIKE CONCAT('%',?,'%')) LIMIT ?
+                    WHERE type = ? AND (title LIKE CONCAT('%',?,'%') OR category LIKE CONCAT('%',?,'%'))
+                    ORDER BY posts.created_at DESC
+                    LIMIT ?
             ";
             $type = "sssi";
             $fields_array = [$search_key["type"], $search_key["search_key"], $search_key["search_key"], 10];
@@ -134,14 +138,12 @@
         }
 
         private function executeQuery($action, $query, $type, $fields_array) {
-            try {
-                $stmt = $this->db_connect->prepare($query);
+            if($stmt = $this->db_connect->prepare($query)) {
                 $stmt->bind_param($type, ...$fields_array);
                 $stmt->execute();
                 return $stmt->get_result();
-            } catch(Exception $e) {
-                throw new Exception($e->getMessage());
             }
+            return new Exception("Failed data query: " + $action);
         }
     }
 ?>

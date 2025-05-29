@@ -7,8 +7,8 @@ $(document).ready(function () {
     loadPostCards(postDisplay, 0);
 
     async function loadPostCards(limit, offset) {
-        let posts_data_res = await ajaxRequest(`?type=${currentPage}&limit=${limit}&offset=${offset}`);
-        loopThroughPostsData(posts_data_res);
+        let postsDataRes = await ajaxRequest(`?type=${currentPage}&limit=${limit}&offset=${offset}`);
+        loopThroughPostsData(postsDataRes);
     }
 
     $(document).on("click", ".filters > button", async function () {
@@ -26,12 +26,12 @@ $(document).ready(function () {
     });
 
     async function searchPosts(search_key) {
-        let posts_data_res = await ajaxRequest(`?type=${currentPage}&search_key=${search_key}`);
-        loopThroughPostsData(posts_data_res);
+        let postsDataRes = await ajaxRequest(`?type=${currentPage}&search_key=${search_key}`);
+        loopThroughPostsData(postsDataRes);
     }
 
-    function loopThroughPostsData(posts_data_res) {
-        let posts_data = JSON.parse(posts_data_res);
+    function loopThroughPostsData(postsDataRes) {
+        let posts_data = JSON.parse(postsDataRes);
         $(postContainer).empty();
         let post_cards = "";
         if(posts_data.length !== 0) {

@@ -36,7 +36,13 @@
                     <select type="text" name="category" required>
                         <option>Select a category.</option>
                         <?php
-                            $categories = ["cultural","nature","city","spiritual"];
+                            if(SITE_PATH === "/admin/travel")
+                                $categories = ["cultural","nature","city","spiritual"];
+                            if(SITE_PATH === "/admin/blog")
+                                $categories = ["becoming","wanderlust","moments","style"];
+                            if(SITE_PATH === "/admin/ootd")
+                                $categories = ["spring","summer","winter","fall"];
+
                             for($i = 0; $i < count($categories); $i++) {
                                 echo "<option value=" . $categories[$i] . ">" . strtoupper($categories[$i]) . "</option>";
                             }

@@ -9,7 +9,7 @@ $(document).ready(function() {
         let table_data_res = await ajaxRequest("GET", "", `?type=${type}&limit=${limit}&offset=${offset}`);
         let table_data = JSON.parse(table_data_res);
         let table_rows = "";
-        if(table_data.length !== 0) {
+        if(table_data.length !== 0 && !table_data.hasOwnProperty("error_message")) {
             for(let i = 0; i < table_data.length; i++) {
                 table_rows += `
                     <tr>
@@ -24,6 +24,12 @@ $(document).ready(function() {
                     </tr>
                 `;
             }
+        } else if(table_data.hasOwnProperty("error_message")) {
+            table_rows += `
+                <tr>
+                    <td ${type === "blog" ? 'colspan="5"' : 'colspan="4"' } >${table_data.error_message}</td>
+                </tr>
+            `;
         } else {
             table_rows += `
                 <tr>

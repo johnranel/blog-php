@@ -8,7 +8,7 @@ $(document).ready(function() {
         let posts_data_res = await ajaxRequest(`?type=${type}&limit=${limit}&offset=0`);
         let posts_data = JSON.parse(posts_data_res);
         let posts_cards = "";
-        if(posts_data.length !== 0) {
+        if(posts_data.length !== 0 && !posts_data.hasOwnProperty("error_message")) {
             for(let i = 0; i < posts_data.length; i++) {
                 if(type === "travel")
                     posts_cards += travelImages(posts_data[i]);
@@ -17,6 +17,8 @@ $(document).ready(function() {
                 if(type === "ootd")
                     posts_cards += ootdImages(posts_data[i]);
             }
+        } else if(posts_data.hasOwnProperty("error_message")) {
+            posts_cards += `<div class="empty-message">${posts_data.error_message} Please refresh the page.</div>`;
         } else {
             posts_cards += `<div class="empty-message">No Post Available.</div>`;
         }

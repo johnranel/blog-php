@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="menu-container">
-                    <button class="close-menu"><img src="./assets/images/flex/close.png" alt="Close menu"></button>
+                    <button class="close-menu"><img src="<?php echo SITE_URL ?>/assets/images/flex/close.png" alt="Close menu"></button>
                     <?php echo navLinks(SITE_PATH); ?>
                     <div class="social-icons-container">
                         <?php

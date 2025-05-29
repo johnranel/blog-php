@@ -29,7 +29,7 @@
                 slug_title VARCHAR(255) NOT NULL,
                 type VARCHAR(20) NOT NULL,
                 short_description VARCHAR(255),
-                content VARCHAR(150),
+                content TEXT,
                 category VARCHAR(50) NOT NULL,
                 date DATE NOT NULL,
                 created_at DATETIME NOT NULL,

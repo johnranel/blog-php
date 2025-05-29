@@ -4,6 +4,7 @@
     require_once("../models/post.php");
     require_once("../models/images.php");
     require_once("../helpers/authentication.php");
+    require_once("../helpers/error_handler.php");
 
     $post_db = new Posts($db_conn);
     $image_db = new Images($db_conn);
@@ -11,28 +12,32 @@
     switch($_SERVER["REQUEST_METHOD"]) {
         case "POST":
             if(array_key_exists("create", $_GET)) {
-                createPost($post_db, $image_db);
+                errorHandler(fn() => createPost($post_db, $image_db));
             }
 
             if(array_key_exists("update", $_GET)) {
-                modifyPost($post_db, $image_db);
+                errorHandler(fn() => modifyPost($post_db, $image_db));
             }
             break;
         case "GET":
             if(array_key_exists("type", $_GET) && array_key_exists("limit", $_GET) && array_key_exists("offset", $_GET)) {
-                getPostTableData($post_db);
+                errorHandler(fn() => getPostTableData($post_db));
+            }
+
+            if(array_key_exists("slug_title", $_GET)) {
+                errorHandler(fn() => getPostBySlugTitle($post_db));
             }
 
             if(array_key_exists("id", $_GET)) {
-                getPostById($post_db);
+                errorHandler(fn() => getPostById($post_db));
             }
 
             if(array_key_exists("type", $_GET) && array_key_exists("search_key", $_GET)) {
-                getPostBySearchKey($post_db);
+                errorHandler(fn() => getPostBySearchKey($post_db));
             }
             break;
         case "DELETE":
-            removePost($post_db, $image_db);
+            errorHandler(fn() => removePost($post_db, $image_db));
             break;
     }
 
@@ -70,6 +75,11 @@
     function getPostTableData($post_db) {
         $post_res = $post_db->getPostByTypeLimited($_GET);
         createArrayConvertDataToJSON($post_res);
+    }
+
+    function getPostBySlugTitle($post_db) {
+        $post_res = $post_db->getPostBySlugTitle($_GET);
+        echo json_encode($post_res->fetch_assoc());
     }
 
     function getPostById($post_db) {
