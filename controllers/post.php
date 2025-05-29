@@ -28,6 +28,10 @@
                 errorHandler(fn() => getPostBySlugTitle($post_db));
             }
 
+            if(array_key_exists("posts_count", $_GET)) {
+                errorHandler(fn() => getPostCountByType($post_db));
+            }
+
             if(array_key_exists("id", $_GET)) {
                 errorHandler(fn() => getPostById($post_db));
             }
@@ -80,6 +84,11 @@
     function getPostBySlugTitle($post_db) {
         $post_res = $post_db->getPostBySlugTitle($_GET);
         echo json_encode($post_res->fetch_assoc());
+    }
+
+    function getPostCountByType($post_db) {
+        $post_res = $post_db->getPostCountByType();
+        createArrayConvertDataToJSON($post_res);
     }
 
     function getPostById($post_db) {

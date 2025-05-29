@@ -9,6 +9,9 @@
 
     function loadJsFiles($current_site_path) {
         $scripts = "";
+        if($current_site_path === "/admin/dashboard") {
+            $scripts .= '<script type="text/javascript" src="' . SITE_URL . '/assets/js/ajax/admin/dashboard.js"></script>';
+        }
         if($current_site_path === "/admin/travel" || $current_site_path === "/admin/blog" || $current_site_path === "/admin/ootd") {
             $scripts .= '<script type="text/javascript" src="' . SITE_URL . '/assets/js/modals.js"></script>';
             $scripts .= '<script type="text/javascript" src="' . SITE_URL . '/assets/js/ajax/admin/posts.js"></script>';

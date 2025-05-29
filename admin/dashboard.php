@@ -7,21 +7,21 @@
         <section>
             <h1>Dashboard</h1>
             <div class="statistics">
-                <div>
+                <div class="user">
                     <h2>Users</h2>
-                    <span>1</span>
+                    <span>0</span>
                 </div>
-                <div>
+                <div class="travel">
                     <h2>Travel Posts</h2>
-                    <span>6</span>
+                    <span>0</span>
                 </div>
-                <div>
+                <div class="blog">
                     <h2>Blog Posts</h2>
-                    <span>6</span>
+                    <span>0</span>
                 </div>
-                <div>
+                <div class="ootd">
                     <h2>OOTD Posts</h2>
-                    <span>6</span>
+                    <span>0</span>
                 </div>
                 <div>
                     <h2>User Comments</h2>

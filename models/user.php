@@ -6,6 +6,14 @@
             $this->db_connect = $db_conn;
         }
 
+        public function getUserCount() {
+            $action = "Get user count";
+            $query = "SELECT COUNT(*) as count FROM users WHERE role = ?;";
+            $type = "s";
+            $fields_array = ["user"];
+            return $this->executeQuery($action, $query, $type, $fields_array);
+        }
+
         public function getUserByEmail($email) {
             $action = "Fetch user by email";
             $query = "SELECT * FROM users WHERE email = ?;";
@@ -48,10 +56,12 @@
             $this->executeQuery($action, $query, $type, $fields_array);
         }
 
-        private function executeQuery($action, $query, $type, $fields_array) {
+        private function executeQuery($action, $query, $type = NULL, $fields_array = NULL) {
             try {
                 $stmt = $this->db_connect->prepare($query);
-                $stmt->bind_param($type, ...$fields_array);
+                if($type !== NULL) {
+                    $stmt->bind_param($type, ...$fields_array);
+                }
                 $stmt->execute();
                 $result = $stmt->get_result();
                 return $result;

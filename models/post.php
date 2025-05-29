@@ -18,6 +18,15 @@
             return $this->executeQuery($action, $query, $type, $fields_array);
         }
 
+        public function getPostCountByType() {
+            $action = "Get post count by type";
+            $query = "SELECT type, COUNT(*) as count
+                    FROM posts
+                    GROUP BY type
+            ";
+            return $this->executeQuery($action, $query);
+        }
+
         public function getPostById($post_data) {
             $action = "Get post by id";
             $query = "SELECT posts.*, images.id AS image_id, images.image_url
@@ -137,9 +146,11 @@
             $this->executeQuery($action, $query, $type, $fields_array);
         }
 
-        private function executeQuery($action, $query, $type, $fields_array) {
+        private function executeQuery($action, $query, $type = NULL, $fields_array = NULL) {
             if($stmt = $this->db_connect->prepare($query)) {
-                $stmt->bind_param($type, ...$fields_array);
+                if($type !== NULL) {
+                    $stmt->bind_param($type, ...$fields_array);
+                }
                 $stmt->execute();
                 return $stmt->get_result();
             }

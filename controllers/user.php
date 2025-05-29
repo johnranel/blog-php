@@ -19,10 +19,24 @@
                 login($user_db);
             }
         case "GET":
+            if(array_key_exists("user_count", $_GET)) {
+                getUserCount($user_db);
+            }
+
             if(array_key_exists("logout", $_GET)) {
                 logout();
             }
             break;
+    }
+
+    function getUserCount($user_db) {
+        try {
+            $user_db_res = $user_db->getUserCount();
+            $user_count = $user_db_res->fetch_assoc();
+            echo json_encode($user_count);
+        } catch(Exception $e) {
+            echo "Something went wrong!";
+        }
     }
 
     function registration($user_db) {
