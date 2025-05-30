@@ -28,7 +28,7 @@
         return $scripts;
     }
 
-    function navLinks($site_path) {
+    function navLinks($current_site_path) {
         $nav_links_name = ["index", ["travel", "blog", "ootd"], "about", "contact"];
         if (isLoggedIn()) {
             array_push($nav_links_name, ["logout"]);
@@ -40,7 +40,7 @@
         for($i = 0; $i < count($nav_links_name); $i++) {
             if(!is_array($nav_links_name[$i])) {
                 $nav_link_name = ($nav_links_name[$i] === "index") ? "HOME" : strtoupper($nav_links_name[$i]);
-                $nav_link_active = ($site_path === $nav_links_name[$i]) ? 'class="active"' : '';
+                $nav_link_active = ($current_site_path === $nav_links_name[$i]) ? 'class="active"' : '';
                 $nav_link_elems .= '<li><a href="/' . $nav_links_name[$i] . '.php" ' . $nav_link_active . '>' . $nav_link_name . '</a></li>';
             } else {
                 if($nav_links_name[$i][0] === "travel") {
@@ -53,7 +53,7 @@
                 }
                 $sub_nav_link_names = $nav_links_name[$i];
                 for($j = 0; $j < count($sub_nav_link_names); $j++) {
-                    $sub_nav_link_active = ($site_path === $sub_nav_link_names[$j]) ? 'class="active"' : '';
+                    $sub_nav_link_active = ($current_site_path === $sub_nav_link_names[$j]) ? 'class="active"' : '';
                     $sub_link = ($sub_nav_link_names[$j] !== "logout") ? $sub_nav_link_names[$j] . ".php" : "controllers/user.php?logout=1";
                     $nav_link_elems .= '<li><a href="/' . $sub_link . '" ' . $sub_nav_link_active . '>' . strtoupper($sub_nav_link_names[$j]) . '</a></li>';
                 }
@@ -64,5 +64,10 @@
         $nav_link_elems .= "</ul>";
 
         return $nav_link_elems;
+    }
+
+    function sideMenu($current_path, $path) {
+        $nav_link_active = ($current_path === $path) ? 'class="active"' : '';
+        return $nav_link_active;
     }
 ?>

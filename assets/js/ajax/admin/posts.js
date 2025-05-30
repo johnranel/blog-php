@@ -3,6 +3,7 @@ $(document).ready(function() {
     let type = currentURL.substring(7, currentURL.length - 4);
 
     loadPostsTable(10, 0);
+    loadPagination();
 
     async function loadPostsTable(limit, offset) {
         $(".table-body").empty();
@@ -40,6 +41,27 @@ $(document).ready(function() {
         
         $(".table-body").append(table_rows);
     }
+
+    async function loadPagination() {
+        $(".pagination>ul").empty();
+        let pagination_data_res = await ajaxRequest("GET", "", `?posts_count=true`);
+        let pagination_data_array = JSON.parse(pagination_data_res);
+        let pagination_data = pagination_data_array.find(function(obj) {
+            return obj.type === type;
+        });
+        
+        let pagination_count = Math.ceil(pagination_data.count/10);
+        let offset = 0;
+        for(let i = 1; i <= pagination_count; i++) {
+            $(".pagination>ul").append(`<li data-offset="${offset}">${i}</li>`);
+            offset += 10;
+        }
+    }
+
+    $(document).on("click", ".pagination>ul>li", function () {
+        let offset = $(this).attr("data-offset");
+        loadPostsTable(10, offset);
+    });
 
     $(document).on("click", ".create-post", function(event) {
         $("form")[0].reset();

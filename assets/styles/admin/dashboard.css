@@ -211,6 +211,21 @@ main > .container > section {
     cursor: pointer;
 }
 
+.pagination > ul {
+    list-style: none;
+    padding: 0;
+    gap: 5px;
+    display: flex;
+}
+
+.pagination > ul > li {
+    padding: 5px 0;
+    width: 30px;
+    text-align: center;
+    border: 1px solid #000000;
+    cursor: pointer;
+}
+
 /* 40rem */
 @media screen and (min-width: 640px) {
     main > .container {
