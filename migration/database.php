@@ -8,8 +8,9 @@
             $database->createUsersTable();
             $database->createPostsTable();
             $database->createImagesTable();
+            $database->createCommentsTable();
         } catch(Exception $e) {
-            throw new error("died: " . $e->getMessage());
+            throw new error("Database migration failed.");
         }
     }
 

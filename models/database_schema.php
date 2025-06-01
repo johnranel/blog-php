@@ -54,6 +54,20 @@
             $this->executeQuery($db_name, $query);
         }
 
+        public function createCommentsTable() {
+            $db_name = "comments";
+            $query "CREATE TABLE comments (
+                id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                user_id INT UNSIGNED,
+                post_id INT UNSIGNED,
+                comment TEXT,
+                created_at DATETIME NOT NULL,
+                updated_at DATETIME NOT NULL,
+                FOREIGN KEY(user_id) REFERENCES users(id),
+                FOREIGN KEY(post_id) REFERENCES posts(id)
+            )";
+        }
+
         private function executeQuery($db_name, $query) {
             $table_exists = $this->db_connect->query("SHOW TABLES LIKE '$db_name'");
             if(mysqli_num_rows($table_exists) <= 0) {

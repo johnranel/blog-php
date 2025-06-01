@@ -4,13 +4,15 @@ $(document).ready(function () {
     $("form").find("button").attr("disabled", "disabled");
     let validation = {};
 
-    $("form").on("change", function () {
+    $("form").on("change keyup", function () {
         let input_elems = $(this).find("input");
         input_elems.each(function() {
             validateInput($(this).attr("name"), $(this).val());
         });
         enableButton();
     });
+
+    $("form").trigger("keyup");
 
     function validateInput(input_name, input_value) {
         errorMessage(input_name, "default", !hasValidLength(input_value));
