@@ -17,26 +17,26 @@ Life Musings of Jane – a personal blog site built with **PHP**, **HTML**, **CS
 
 ## Project Structure
 
-|── admin/ # Admin panel pages\
-|── assets/ # CSS, JS, images\
-|── controllers/ # Handling HTTP requests\
-|── helpers/ # Utility functions\
-|── includes/ # Shared components (header, footer)\
-|── migration/ # DB migration scripts\
-|── models/ # DB interaction (Post, User, etc.)\
-|── *.php # Public-facing pages:\
-| ├── index.php # Homepage\
-| ├── blog.php # Blog listing\
-| ├── blog-post.php # Single blog post\
-| ├── travel.php # Travel category listing\
-| ├── travel-post.php # Single travel post\
-| ├── ootd.php # Outfit-of-the-day category\
-| ├── about.php # About page\
-| ├── contact.php # Contact form\
-| ├── login.php # User login\
-| ├── register.php # User registration\
-| └── my_profile.php # Profile editing\
-── README.md # This file
+    |── admin/ # Admin panel pages
+    |── assets/ # CSS, JS, images
+    |── controllers/ # Handling HTTP requests
+    |── helpers/ # Utility functions
+    |── includes/ # Shared components (header, footer)
+    |── migration/ # DB migration scripts
+    |── models/ # DB interaction (Post, User, etc.)
+    |── *.php # Public-facing pages:
+    | ├── index.php # Homepage
+    | ├── blog.php # Blog listing
+    | ├── blog-post.php # Single blog post
+    | ├── travel.php # Travel category listing
+    | ├── travel-post.php # Single travel post
+    | ├── ootd.php # Outfit-of-the-day category
+    | ├── about.php # About page
+    | ├── contact.php # Contact form
+    | ├── login.php # User login
+    | ├── register.php # User registration
+    | └── my_profile.php # Profile editing
+    └──── README.md # This file
 
 ---
 
@@ -67,6 +67,7 @@ Life Musings of Jane – a personal blog site built with **PHP**, **HTML**, **CS
     Edit DB credentials in ```includes/db_config.php```.
 
 3. **Ready to go**
+
     If vanilla PHP, you're ready to go
 
     Access in browser: http://localhost/blog-php/
@@ -74,12 +75,9 @@ Life Musings of Jane – a personal blog site built with **PHP**, **HTML**, **CS
     Register/log in, create posts, and explore
 
 ## MVC Flow
-Public pages call respective controllers
 
-Controllers fetch data from models (e.g., Post, User)
-
-Models execute DB queries
-
-Includes/views render HTML with data
-
-Helpers manage reusable logic (e.g. auth, sanitization)
+1. Public pages call respective controllers
+2. Controllers fetch data from models (e.g., Post, User)
+3. Models execute DB queries
+4. Includes/views render HTML with data
+5. Helpers manage reusable logic (e.g. auth, sanitization)
