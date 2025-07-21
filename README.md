@@ -51,26 +51,27 @@ Life Musings of Jane – a personal blog site built with **PHP**, **HTML**, **CS
 ## 🛠️ Setup and Installation
 
 1. **Clone the repo**
-   ```bash
-   git clone https://github.com/johnranel/blog-php.git
-   cd blog-php```
+
+        ```bash
+        git clone https://github.com/johnranel/blog-php.git
+        cd blog-php```
 
 2. **Database Setup**
-Create a new database (e.g., blog_db)
 
-Run SQL migration in ```migration/database.php``` to create tables (e.g. users, posts, categories)
+    Create a new database (e.g., blog_db)
 
-Configure Database
+    Run SQL migration in ```migration/database.php``` to create tables (e.g. users, posts, categories)
 
-Edit DB credentials in ```includes/db_config.php```.
+    Configure Database
 
-4. **Ready to go**
+    Edit DB credentials in ```includes/db_config.php```.
 
-If vanilla PHP, you're ready to go
+3. **Ready to go**
+    If vanilla PHP, you're ready to go
 
-Access in browser: http://localhost/blog-php/
+    Access in browser: http://localhost/blog-php/
 
-Register/log in, create posts, and explore
+    Register/log in, create posts, and explore
 
 ## MVC Flow
 Public pages call respective controllers
